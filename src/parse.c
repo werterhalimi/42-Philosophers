@@ -6,7 +6,7 @@
 /*   By: shalimi <shalimi@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:55:41 by shalimi           #+#    #+#             */
-/*   Updated: 2022/11/27 19:42:49 by shalimi          ###   ########.fr       */
+/*   Updated: 2022/11/28 17:52:14 by shalimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void	parse(int argc, char **argv)
 		write(2, "Error", 5);
 		exit(1);
 	}
-
+	(void) argv;
 }

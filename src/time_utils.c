@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   table_set.h                                        :+:      :+:    :+:   */
+/*   time_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shalimi <shalimi@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: shalimi <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/27 18:51:09 by shalimi           #+#    #+#             */
-/*   Updated: 2022/11/27 22:17:43 by shalimi          ###   ########.fr       */
+/*   Created: 2022/11/28 21:21:42 by shalimi           #+#    #+#             */
+/*   Updated: 2022/11/28 21:54:19 by shalimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TABLE_SET_H
-# define TABLE_SET_H
-# include "philosophers.h"
+#include "philosophers.h"
 
-typedef struct s_table_set
+long	get_now()
 {
-	enum e_state	state;
-	pthread_mutex_t mutex;
-} t_table_set;
-#endif
+	struct timeval	now;
+	static long		start;
+
+	gettimeofday(&now, 0);
+	if (start == 0)
+	{
+		start = now.tv_sec * 1000 + now.tv_usec / 1000;
+	}
+	return ((now.tv_sec * 1000 + now.tv_usec / 1000) - start);
+}
