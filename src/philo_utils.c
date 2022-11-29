@@ -6,7 +6,7 @@
 /*   By: shalimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:53:40 by shalimi           #+#    #+#             */
-/*   Updated: 2022/11/29 23:53:43 by shalimi          ###   ########.fr       */
+/*   Updated: 2022/11/30 00:41:43 by shalimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,20 @@ void	check_eat_time(t_philo *philo, long now)
 	if (now - philo->last_ate >= philo->table->time_to_die)
 	{
 		philo->table->finished = 1;
-		printf("%i est mort - %ld\n", philo->position, now);
+		printf("%ld %i died\n", get_now(), philo->position);
 		exit(0);
 	}
+}
+
+void	lock_fork(t_philo *philo, t_table *table, int position)
+{
+	pthread_mutex_lock(&table->mutex[position]);
+	if (table->forks[position] == Fork)
+	{
+		table->forks[position] = Eating;
+		printf("%ld %i has taken a fork\n", get_now(), philo->position);
+	}
+	pthread_mutex_unlock(&table->mutex[position]);
 }
 
 void	take_fork(t_philo *philo, int right, int left, t_table *table)
@@ -30,22 +41,12 @@ void	take_fork(t_philo *philo, int right, int left, t_table *table)
 		right = 0;
 	if (!philo->left)
 	{
-		pthread_mutex_lock(&table->mutex[left]);
-		if (table->forks[left] == Fork)
-		{
-			table->forks[left] = Eating;
-			philo->left = 1;
-		}
-		pthread_mutex_unlock(&table->mutex[left]);
+		lock_fork(philo, table, left);
+		philo->left = 1;
 	}
 	if (!philo->right)
 	{
-		pthread_mutex_lock(&table->mutex[right]);
-		if (table->forks[right] == Fork)
-		{
-			table->forks[right] = Eating;
-			philo->right = 1;
-		}
-		pthread_mutex_unlock(&table->mutex[right]);
+		lock_fork(philo, table, right);
+		philo->right = 1;
 	}
 }

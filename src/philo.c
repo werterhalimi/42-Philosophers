@@ -6,7 +6,7 @@
 /*   By: shalimi <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 22:08:58 by shalimi           #+#    #+#             */
-/*   Updated: 2022/11/29 02:59:47 by shalimi          ###   ########.fr       */
+/*   Updated: 2022/11/30 00:42:33 by shalimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	eat(t_philo *philo)
 		philo->state = Eating;
 		philo->last_ate = get_now();
 		philo->no_eat += 1;
-		printf("%i is eating - %ld\n", philo->position, philo->last_ate);
+		printf("%ld %i is eating\n", philo->last_ate, philo->position);
 	}
 	if (philo->table->total_eat != 0
 		&& philo->no_eat >= philo->table->total_eat)
@@ -106,7 +106,7 @@ void	sleep_philo(t_philo *philo)
 	philo->left = 0;
 	philo->right = 0;
 	philo->last_slept = get_now();
-	printf("%i is sleeping - %ld\n", philo->position, philo->last_slept);
+	printf("%ld %i is sleeping\n", philo->last_slept, philo->position);
 }
 /*
 void	check_eat_time(t_philo *philo, long now)
@@ -132,7 +132,10 @@ void	*run(void *p)
 		if (philo->state == Sleeping)
 		{
 			if (now - philo->last_slept >= philo->table->time_to_eat)
+			{
 				philo->state = Thinking;
+				printf("%ld %i is Thinking\n", now, philo->position);
+			}
 		}
 		if (philo->state == Eating)
 		{
