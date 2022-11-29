@@ -6,7 +6,7 @@
 /*   By: shalimi <shalimi@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:54:53 by shalimi           #+#    #+#             */
-/*   Updated: 2022/11/29 02:04:25 by shalimi          ###   ########.fr       */
+/*   Updated: 2022/11/29 02:49:10 by shalimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	main(int argc, char **argv)
 
 	(void) argc;
 	(void) argv;
-	table = new_table(4,310, 200, 200);
+	t_params params = parse(argc, argv);
+	table = new_table(params);
 	int	i = 0;
 	while (i < table->no_philo)
 	{

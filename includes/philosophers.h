@@ -6,7 +6,7 @@
 /*   By: shalimi <shalimi@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 19:43:02 by shalimi           #+#    #+#             */
-/*   Updated: 2022/11/29 01:55:32 by shalimi          ###   ########.fr       */
+/*   Updated: 2022/11/29 02:49:36 by shalimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include "params.h"
 
 typedef struct s_philo
 {
@@ -35,9 +36,10 @@ typedef struct s_philo
 
 } t_philo;
 
-void	*run(void *philo);
-void	run_philo(t_philo *philo);
-long	get_now();
-t_philo	new_philo(int position, t_table *table, pthread_t *thread);
-t_table	*new_table(int no, int die, int eat, int sleep);
+void		*run(void *philo);
+void		run_philo(t_philo *philo);
+t_params	parse(int argc, char **argv);
+long		get_now();
+t_philo		new_philo(int position, t_table *table, pthread_t *thread);
+t_table		*new_table(t_params params);
 #endif
