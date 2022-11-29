@@ -18,7 +18,7 @@
 typedef struct s_table
 {
 	enum e_state	*forks;
-	pthread_mutex_t mutex;
+	pthread_mutex_t *mutex;
 	pthread_t		*threads;
 	void			*philos;
 	int				no_philo;

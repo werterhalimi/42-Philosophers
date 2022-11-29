@@ -21,17 +21,18 @@ t_table	*new_table(t_params params)
 	ret->philos = malloc(sizeof(t_philo) * (params.no_philo));
 	ret->forks = malloc(sizeof(enum e_state) * (params.no_philo));
 	ret->threads = malloc(sizeof(*ret->threads) * (params.no_philo));
+	ret->mutex = malloc(sizeof(*ret->mutex) * (params.no_philo));
 	ret->no_philo = params.no_philo;
 	ret->time_to_die = params.time_to_die;
 	ret->time_to_eat = params.time_to_eat;
 	ret->time_to_sleep = params.time_to_sleep;
 	ret->total_eat = params.total_eat;
 	ret->finished = 0;
-	pthread_mutex_init(&ret->mutex, NULL);
 	i = 0;
 	while (i < params.no_philo)
 	{
 		ret->forks[i] = Fork;
+		pthread_mutex_init(ret->mutex + i, NULL);
 		i++;
 	}
 	i = 0;

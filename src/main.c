@@ -32,6 +32,7 @@ int	main(int argc, char **argv)
 	free(table->philos);
 	free(table->forks);
 	free(table->threads);
+	free(table->mutex);
 	free(table);
 	return (0);
 }

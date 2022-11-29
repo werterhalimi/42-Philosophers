@@ -49,23 +49,23 @@ void	eat(t_philo *philo)
 		right = 0;
 	if (!philo->left)
 	{
-		pthread_mutex_lock(&table->mutex);
+		pthread_mutex_lock(&table->mutex[left]);
 		if (table->forks[left] == Fork)
 		{
 			table->forks[left] = Eating;
 			philo->left = 1;
 		}
-		pthread_mutex_unlock(&table->mutex);
+		pthread_mutex_unlock(&table->mutex[left]);
 	}
 	if (!philo->right)
 	{
-		pthread_mutex_lock(&table->mutex);
+		pthread_mutex_lock(&table->mutex[right]);
 		if (table->forks[right] == Fork)
 		{
 			table->forks[right] = Eating;
 			philo->right = 1;
 		}
-		pthread_mutex_unlock(&table->mutex);
+		pthread_mutex_unlock(&table->mutex[right]);
 	}
 	if (philo->right && philo->left)
 	{
@@ -90,10 +90,12 @@ void	sleep_philo(t_philo *philo)
 	if (philo->position == table->no_philo - 1)
 		right = 0;
 	philo->state = Sleeping;
-	pthread_mutex_lock(&philo->table->mutex);
+	pthread_mutex_lock(&philo->table->mutex[left]);
 	table->forks[left] = Fork;
+	pthread_mutex_unlock(&philo->table->mutex[left]);
+	pthread_mutex_lock(&philo->table->mutex[right]);
 	table->forks[right] = Fork;
-	pthread_mutex_unlock(&philo->table->mutex);
+	pthread_mutex_unlock(&philo->table->mutex[right]);
 	philo->left = 0;
 	philo->right = 0;
 	philo->last_slept = get_now();
