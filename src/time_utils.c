@@ -12,7 +12,7 @@
 
 #include "philosophers.h"
 
-long	get_now()
+long	get_now(void)
 {
 	struct timeval	now;
 	static long		start;

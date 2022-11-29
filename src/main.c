@@ -14,19 +14,19 @@
 
 int	main(int argc, char **argv)
 {
-	t_table	*table;
+	t_table		*table;
+	t_params	params;
+	int			i;
+	t_philo		philo;
 
-	(void) argc;
-	(void) argv;
-	t_params params = parse(argc, argv);
+	params = parse(argc, argv);
 	table = new_table(params);
-	int	i = 0;
+	i = 0;
 	while (i < table->no_philo)
 	{
-		t_philo philo = ((t_philo *)table->philos)[i];
-		if (pthread_join(*(philo.thread), NULL) != 0) {
-        	return 5;
-    	}
+		philo = ((t_philo *)table->philos)[i];
+		if (pthread_join(*(philo.thread), NULL) != 0)
+			return (1);
 		i++;
 	}
 	free(table->philos);

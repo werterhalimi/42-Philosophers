@@ -32,14 +32,15 @@ typedef struct s_philo
 	enum e_state	state;
 	pthread_t		*thread;
 	t_table			*table;
-	void*			(*run)(void *);
-
-} t_philo;
+	void			*(*run)(void*);
+}	t_philo;
 
 void		*run(void *philo);
 void		run_philo(t_philo *philo);
+void		check_eat_time(t_philo *philo, long now);
+void		take_fork(t_philo *philo, int right, int left, t_table *table);
 t_params	parse(int argc, char **argv);
-long		get_now();
+long		get_now(void);
 t_philo		new_philo(int position, t_table *table, pthread_t *thread);
 t_table		*new_table(t_params params);
 #endif

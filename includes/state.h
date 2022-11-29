@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef STATE_H
-#include "philosophers.h"
+# include "philosophers.h"
 
 enum e_state
 {

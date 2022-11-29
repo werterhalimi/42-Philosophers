@@ -5,7 +5,7 @@ SRC_OBJ		= objs/
 SRC_HEADER	= includes/
 
 HEADER	= philosophers.h
-SRC = main.c parse.c philo.c table.c time_utils.c
+SRC = main.c parse.c philo.c table.c time_utils.c philo_utils.c
 CFLAGS	= -Wall -Wextra -Werror -g3
 OPTIONS	= -I$(SRC_HEADER)
 LIBS		= -lpthread

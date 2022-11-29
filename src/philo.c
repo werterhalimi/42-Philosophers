@@ -20,7 +20,7 @@ t_philo	new_philo(int position, t_table *table, pthread_t *thread)
 	ret.position = position;
 	ret.no_eat = 0;
 	ret.left = 0;
-	ret.right= 0;
+	ret.right = 0;
 	ret.thread = thread;
 	ret.state = Thinking;
 	ret.run = &run;
@@ -29,20 +29,15 @@ t_philo	new_philo(int position, t_table *table, pthread_t *thread)
 
 void	run_philo(t_philo *philo)
 {
-	if (pthread_create(philo->thread, 0, philo->run,(void *) philo))
+	if (pthread_create(philo->thread, 0, philo->run, (void *) philo))
 	{
 		printf("Erreur");
 		exit(1);
 	}
 }
-
-void	eat(t_philo *philo)
+/*
+void	take_fork(t_philo *philo, int right, int left, t_table *table)
 {
-	t_table *table;
-	int		right;
-	int		left;
-
-	table = philo->table;
 	right = philo->position + 1;
 	left = philo->position;
 	if (philo->position == table->no_philo - 1)
@@ -67,6 +62,14 @@ void	eat(t_philo *philo)
 		}
 		pthread_mutex_unlock(&table->mutex[right]);
 	}
+}*/
+
+void	eat(t_philo *philo)
+{
+	t_table	*table;
+
+	table = philo->table;
+	take_fork(philo, 0, 0, table);
 	if (philo->right && philo->left)
 	{
 		philo->state = Eating;
@@ -74,13 +77,17 @@ void	eat(t_philo *philo)
 		philo->no_eat += 1;
 		printf("%i is eating - %ld\n", philo->position, philo->last_ate);
 	}
-	if (philo->table->total_eat != 0 && philo->no_eat >= philo->table->total_eat)
+	if (philo->table->total_eat != 0
+		&& philo->no_eat >= philo->table->total_eat)
+	{
 		philo->table->finished = 1;
+		exit(0);
+	}
 }
 
 void	sleep_philo(t_philo *philo)
 {
-	t_table *table;
+	t_table	*table;
 	int		right;
 	int		left;
 
@@ -101,11 +108,23 @@ void	sleep_philo(t_philo *philo)
 	philo->last_slept = get_now();
 	printf("%i is sleeping - %ld\n", philo->position, philo->last_slept);
 }
+/*
+void	check_eat_time(t_philo *philo, long now)
+{
+	if (now - philo->last_ate >= philo->table->time_to_die)
+	{
+		philo->table->finished = 1;
+		printf("%i est mort - %ld\n", philo->position, now);
+		exit(0);
+	}
+}*/
 
 void	*run(void *p)
 {
-	t_philo *philo = (t_philo *)p;
-	long	now;
+	t_philo		*philo;
+	long		now;
+
+	philo = (t_philo *)p;
 	philo->last_ate = get_now();
 	while (philo->table->finished != 1)
 	{
@@ -121,15 +140,8 @@ void	*run(void *p)
 				sleep_philo(philo);
 		}
 		if (philo->state == Thinking)
-		{
 			eat(philo);
-		}
-		if (now - philo->last_ate >= philo->table->time_to_die)
-		{
-			philo->table->finished = 1;
-			printf("%i est mort - %ld\n", philo->position, now);
-			break ;
-		}
+		check_eat_time(philo, now);
 	}
 	return (0);
 }

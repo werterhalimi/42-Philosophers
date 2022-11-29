@@ -12,10 +12,9 @@
 
 #include "philosophers.h"
 
-t_table	*new_table(t_params params)
+t_table	*create_table(t_params params)
 {
 	t_table	*ret;
-	int		i;
 
 	ret = malloc(sizeof(*ret));
 	ret->philos = malloc(sizeof(t_philo) * (params.no_philo));
@@ -28,6 +27,15 @@ t_table	*new_table(t_params params)
 	ret->time_to_sleep = params.time_to_sleep;
 	ret->total_eat = params.total_eat;
 	ret->finished = 0;
+	return (ret);
+}
+
+t_table	*new_table(t_params params)
+{
+	t_table	*ret;
+	int		i;
+
+	ret = create_table(params);
 	i = 0;
 	while (i < params.no_philo)
 	{
@@ -38,7 +46,7 @@ t_table	*new_table(t_params params)
 	i = 0;
 	while (i < params.no_philo)
 	{
-		((t_philo *)ret->philos)[i] = new_philo(i,ret, ret->threads + i);
+		((t_philo *)ret->philos)[i] = new_philo(i, ret, ret->threads + i);
 		if (i % 2)
 			usleep(200000);
 		run_philo(&((t_philo *)ret->philos)[i]);

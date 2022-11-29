@@ -12,6 +12,12 @@
 
 #include "philosophers.h"
 
+void	error(void)
+{
+	write(2, "Error\n", 6);
+	exit(1);
+}
+
 int	ft_atoi(const char *str)
 {
 	int	ret;
@@ -33,10 +39,7 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	if (*str != 0)
-	{
-		write(2, "Error\n", 6);
-		exit(1);
-	}
+		error();
 	return (ret * i);
 }
 
@@ -47,8 +50,8 @@ t_params	parse(int argc, char **argv)
 	int				*arr[5];
 
 	arr[0] = &params.no_philo;
-  	arr[1] = &params.time_to_die;
-  	arr[2] = &params.time_to_eat;
+	arr[1] = &params.time_to_die;
+	arr[2] = &params.time_to_eat;
 	arr[3] = &params.time_to_sleep;
 	arr[4] = &params.total_eat;
 	if (argc < 5)
@@ -61,12 +64,8 @@ t_params	parse(int argc, char **argv)
 	while (i < argc - 1)
 	{
 		*(arr[i]) = ft_atoi(argv[i + 1]);
-		if (*(arr[i]) <= 0)
-		{
-			write(2, "Error\n", 6);
-			exit(1);
-		}
-		i++;
+		if (*(arr[i++]) <= 0)
+			error();
 	}
 	return (params);
 }
