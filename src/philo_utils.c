@@ -6,7 +6,7 @@
 /*   By: shalimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:53:40 by shalimi           #+#    #+#             */
-/*   Updated: 2022/11/30 00:41:43 by shalimi          ###   ########.fr       */
+/*   Updated: 2022/11/30 00:44:44 by shalimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ void	check_eat_time(t_philo *philo, long now)
 		printf("%ld %i died\n", get_now(), philo->position);
 		exit(0);
 	}
+}
+
+void	think(t_philo *philo)
+{
+	philo->state = Thinking;
+	printf("%ld %i is thinking\n", get_now(), philo->position);
 }
 
 void	lock_fork(t_philo *philo, t_table *table, int position)

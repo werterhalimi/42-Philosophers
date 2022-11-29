@@ -6,7 +6,7 @@
 /*   By: shalimi <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 22:08:58 by shalimi           #+#    #+#             */
-/*   Updated: 2022/11/30 00:42:33 by shalimi          ###   ########.fr       */
+/*   Updated: 2022/11/30 00:45:02 by shalimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,34 +35,6 @@ void	run_philo(t_philo *philo)
 		exit(1);
 	}
 }
-/*
-void	take_fork(t_philo *philo, int right, int left, t_table *table)
-{
-	right = philo->position + 1;
-	left = philo->position;
-	if (philo->position == table->no_philo - 1)
-		right = 0;
-	if (!philo->left)
-	{
-		pthread_mutex_lock(&table->mutex[left]);
-		if (table->forks[left] == Fork)
-		{
-			table->forks[left] = Eating;
-			philo->left = 1;
-		}
-		pthread_mutex_unlock(&table->mutex[left]);
-	}
-	if (!philo->right)
-	{
-		pthread_mutex_lock(&table->mutex[right]);
-		if (table->forks[right] == Fork)
-		{
-			table->forks[right] = Eating;
-			philo->right = 1;
-		}
-		pthread_mutex_unlock(&table->mutex[right]);
-	}
-}*/
 
 void	eat(t_philo *philo)
 {
@@ -108,16 +80,6 @@ void	sleep_philo(t_philo *philo)
 	philo->last_slept = get_now();
 	printf("%ld %i is sleeping\n", philo->last_slept, philo->position);
 }
-/*
-void	check_eat_time(t_philo *philo, long now)
-{
-	if (now - philo->last_ate >= philo->table->time_to_die)
-	{
-		philo->table->finished = 1;
-		printf("%i est mort - %ld\n", philo->position, now);
-		exit(0);
-	}
-}*/
 
 void	*run(void *p)
 {
@@ -132,10 +94,7 @@ void	*run(void *p)
 		if (philo->state == Sleeping)
 		{
 			if (now - philo->last_slept >= philo->table->time_to_eat)
-			{
-				philo->state = Thinking;
-				printf("%ld %i is Thinking\n", now, philo->position);
-			}
+				think(philo);
 		}
 		if (philo->state == Eating)
 		{
