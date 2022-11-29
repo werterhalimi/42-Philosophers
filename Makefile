@@ -6,7 +6,7 @@ SRC_HEADER	= includes/
 
 HEADER	= philosophers.h
 SRC = main.c parse.c philo.c table.c time_utils.c
-CFLAGS	= -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror -g3
 OPTIONS	= -I$(SRC_HEADER)
 LIBS		= -lpthread
 
