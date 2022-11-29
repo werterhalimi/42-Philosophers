@@ -6,7 +6,7 @@
 /*   By: shalimi <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 22:08:58 by shalimi           #+#    #+#             */
-/*   Updated: 2022/11/29 01:59:18 by shalimi          ###   ########.fr       */
+/*   Updated: 2022/11/29 02:59:47 by shalimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,11 @@ void	eat(t_philo *philo)
 	{
 		philo->state = Eating;
 		philo->last_ate = get_now();
+		philo->no_eat += 1;
 		printf("%i is eating - %ld\n", philo->position, philo->last_ate);
 	}
+	if (philo->table->total_eat != 0 && philo->no_eat >= philo->table->total_eat)
+		philo->table->finished = 1;
 }
 
 void	sleep_philo(t_philo *philo)

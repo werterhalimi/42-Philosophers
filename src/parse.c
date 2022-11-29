@@ -6,7 +6,7 @@
 /*   By: shalimi <shalimi@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:55:41 by shalimi           #+#    #+#             */
-/*   Updated: 2022/11/29 02:53:23 by shalimi          ###   ########.fr       */
+/*   Updated: 2022/11/29 03:04:25 by shalimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ t_params	parse(int argc, char **argv)
 	while (i < argc - 1)
 	{
 		*(arr[i]) = ft_atoi(argv[i + 1]);
+		if (*(arr[i]) <= 0)
+		{
+			write(2, "Error\n", 6);
+			exit(1);
+		}
 		i++;
 	}
 	return (params);

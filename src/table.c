@@ -6,7 +6,7 @@
 /*   By: shalimi <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 21:57:59 by shalimi           #+#    #+#             */
-/*   Updated: 2022/11/29 02:51:22 by shalimi          ###   ########.fr       */
+/*   Updated: 2022/11/29 02:59:37 by shalimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_table	*new_table(t_params params)
 	ret->time_to_die = params.time_to_die;
 	ret->time_to_eat = params.time_to_eat;
 	ret->time_to_sleep = params.time_to_sleep;
-	ret->total_eat = 0;
+	ret->total_eat = params.total_eat;
 	ret->finished = 0;
 	pthread_mutex_init(&ret->mutex, NULL);
 	i = 0;
