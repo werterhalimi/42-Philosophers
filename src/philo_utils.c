@@ -6,21 +6,11 @@
 /*   By: shalimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:53:40 by shalimi           #+#    #+#             */
-/*   Updated: 2022/11/30 01:11:40 by shalimi          ###   ########.fr       */
+/*   Updated: 2022/11/30 11:56:51 by shalimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-void	check_eat_time(t_philo *philo, long now)
-{
-	if (now - philo->last_ate >= philo->table->time_to_die)
-	{
-		philo->table->finished = 1;
-		printf("%ld %i died\n", get_now(), philo->position);
-		exit(0);
-	}
-}
 
 void	think(t_philo *philo)
 {
@@ -30,18 +20,9 @@ void	think(t_philo *philo)
 
 int	lock_fork(t_philo *philo, t_table *table, int position)
 {
-	int	i;
-
-	i = 0;
 	pthread_mutex_lock(&table->mutex[position]);
-	if (table->forks[position] == Fork)
-	{
-		philo->table->forks[position] = Eating;
-		printf("%ld %i has taken a fork\n", get_now(), philo->position);
-		i = 1;
-	}
-	pthread_mutex_unlock(&table->mutex[position]);
-	return (i);
+	printf("%ld %i has taken a fork\n", get_now(), philo->position);
+	return (1);
 }
 
 void	take_fork(t_philo *philo, int right, int left, t_table *table)

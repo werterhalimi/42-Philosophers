@@ -6,7 +6,7 @@
 /*   By: shalimi <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 22:08:58 by shalimi           #+#    #+#             */
-/*   Updated: 2022/11/30 01:08:14 by shalimi          ###   ########.fr       */
+/*   Updated: 2022/11/30 11:56:29 by shalimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	eat(t_philo *philo)
 		philo->state = Eating;
 		philo->last_ate = get_now();
 		philo->no_eat += 1;
-		printf("%i is eating - %ld\n", philo->position, philo->last_ate);
+		printf("%ld %i is eating\n", philo->last_ate, philo->position);
 	}
 	if (philo->table->total_eat != 0
 		&& philo->no_eat >= philo->table->total_eat)
@@ -69,15 +69,12 @@ void	sleep_philo(t_philo *philo)
 	if (philo->position == table->no_philo - 1)
 		right = 0;
 	philo->state = Sleeping;
-	pthread_mutex_lock(&philo->table->mutex[left]);
-	table->forks[left] = Fork;
 	pthread_mutex_unlock(&philo->table->mutex[left]);
-	pthread_mutex_lock(&philo->table->mutex[right]);
-	table->forks[right] = Fork;
 	pthread_mutex_unlock(&philo->table->mutex[right]);
 	philo->left = 0;
 	philo->right = 0;
 	philo->last_slept = get_now();
+	philo->last_ate = philo->last_slept;
 	printf("%ld %i is sleeping\n", philo->last_slept, philo->position);
 }
 
@@ -103,7 +100,6 @@ void	*run(void *p)
 		}
 		if (philo->state == Thinking)
 			eat(philo);
-		check_eat_time(philo, now);
 	}
 	return (0);
 }
