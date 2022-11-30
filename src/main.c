@@ -6,7 +6,7 @@
 /*   By: shalimi <shalimi@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:54:53 by shalimi           #+#    #+#             */
-/*   Updated: 2022/11/30 12:54:09 by shalimi          ###   ########.fr       */
+/*   Updated: 2022/11/30 13:25:16 by shalimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,13 @@ int	main(int argc, char **argv)
 		done = 0;
 		while (i < table->no_philo)
 		{
-			philo = ((t_philo *) table->philos)[i];
+			philo = ((t_philo *) table->philos)[i++];
 			check_philo(philo, table);
 			if (table->total_eat != 0
-					&& philo.no_eat == table->total_eat)
+				&& philo.no_eat == table->total_eat)
 				done++;
 			if (done == params.no_philo)
 				finish(table);
-			i++;
 		}
 	}
 	join_thread(table);

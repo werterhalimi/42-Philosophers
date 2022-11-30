@@ -6,7 +6,7 @@
 /*   By: shalimi <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 21:57:59 by shalimi           #+#    #+#             */
-/*   Updated: 2022/11/30 13:06:10 by shalimi          ###   ########.fr       */
+/*   Updated: 2022/11/30 13:24:07 by shalimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_table	*new_table(t_params params)
 	{
 		((t_philo *)ret->philos)[i] = new_philo(i, ret, ret->threads + i);
 		if (i % 2)
-			usleep(1000000/200);
+			usleep(1000000 / 200);
 		run_philo(&((t_philo *)ret->philos)[i]);
 		i++;
 	}
