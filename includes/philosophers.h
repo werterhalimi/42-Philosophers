@@ -6,7 +6,7 @@
 /*   By: shalimi <shalimi@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 19:43:02 by shalimi           #+#    #+#             */
-/*   Updated: 2022/11/30 00:44:02 by shalimi          ###   ########.fr       */
+/*   Updated: 2022/11/30 14:43:17 by shalimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_philo
 }	t_philo;
 
 void		*run(void *philo);
+void		print(t_philo *philo, long stamp, char *message);
 void		think(t_philo *philo);
 void		run_philo(t_philo *philo);
 void		check_eat_time(t_philo *philo, long now);

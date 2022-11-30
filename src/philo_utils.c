@@ -6,7 +6,7 @@
 /*   By: shalimi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 23:53:40 by shalimi           #+#    #+#             */
-/*   Updated: 2022/11/30 12:56:03 by shalimi          ###   ########.fr       */
+/*   Updated: 2022/11/30 14:46:56 by shalimi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	think(t_philo *philo)
 {
 	philo->state = Thinking;
-	printf("%ld %i is thinking\n", get_now(), philo->position);
+	print(philo, get_now(), "is thinking");
 }
 
 int	lock_fork(t_philo *philo, t_table *table, int position)
 {
 	pthread_mutex_lock(&table->mutex[position]);
-	printf("%ld %i has taken a fork\n", get_now(), philo->position);
+	print(philo, get_now(), "has taken a fork");
 	return (1);
 }
 
@@ -35,4 +35,10 @@ void	take_fork(t_philo *philo, int right, int left, t_table *table)
 		philo->left = lock_fork(philo, table, left);
 	if (!philo->right)
 		philo->right = lock_fork(philo, table, right);
+}
+
+void	print(t_philo *philo, long stamp, char *message)
+{
+	if (philo->table->finished != 1)
+		printf("%ld %i %s\n", stamp, philo->position, message);
 }
